@@ -1,16 +1,29 @@
-management:
-  health:
-    redis:
-      enabled: false
+#management:
+#  health:
+#    circuitbreakers:   # ?????
+#      enabled: true
+#    ratelimiters:
+#      enabled: true    # ????? ?? ??
+#    redis:
+#      enabled: false
+#  endpoints:                # ???
+#    web:
+#      exposure:
+#        include: *
+#  endpoint:
+#    health:
+#      show-details: always # ?? ??
 
 spring:
   cloud:
     gateway:
       routes:
-        - id: route1
-          uri: # ??? ?? ??
+        - id: rule-service
+          uri: http://localhost:8083 #lb://rule-service
           predicates:
-            #- Path=/?????
+            - Path=/api/rule/v1/**
             #- Host=**.example.com ??
           filters:
             #- SetPath=/?????
+server:
+  port: 9000

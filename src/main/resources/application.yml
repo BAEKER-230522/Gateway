@@ -19,7 +19,7 @@ spring:
     gateway:
       routes:
         - id: rule-service
-          uri: http://localhost:8083 #lb://rule-service
+          uri: lb://rule-service
           predicates:
             - Path=/api/rule/v1/**
             #- Host=**.example.com ??
@@ -27,3 +27,8 @@ spring:
             #- SetPath=/?????
 server:
   port: 9000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

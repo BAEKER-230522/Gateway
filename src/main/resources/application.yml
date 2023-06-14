@@ -31,4 +31,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://${custom.server}:8761/eureka/
+
+custom:
+  server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)

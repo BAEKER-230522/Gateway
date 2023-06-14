@@ -26,8 +26,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
     implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: '4.1.93.Final'
+
+    // eureka
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 
+    // jasypt
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
 
 
 }
@@ -40,6 +44,7 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+    systemProperty "jasypt.encryptor.password", project.getProperty("jasypt.encryptor.password")
 }
 
 jar{

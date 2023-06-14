@@ -35,3 +35,8 @@ eureka:
 
 custom:
   server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)
+
+jasypt:
+  encryptor:
+    password:
+    bean: jasyptStringEncryptor

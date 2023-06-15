@@ -30,6 +30,12 @@ spring:
             #- Host=**.example.com ??
           filters:
             #- SetPath=/?????
+
+        - id: baeker-member
+          uri: lb://baeker-member
+          predicates:
+            - Path=/api/member/**
+
 server:
   port: 9000
 

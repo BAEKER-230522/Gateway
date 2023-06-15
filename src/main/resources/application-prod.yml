@@ -4,5 +4,5 @@ spring:
       on-profile: prod
 
 custom:
-  server: 127.0.0.1
+  server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)
 

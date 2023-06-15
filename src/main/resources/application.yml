@@ -15,6 +15,9 @@
 #      show-details: always # ?? ??
 
 spring:
+  profiles:
+    default:
+
   application:
     name: gateway
   cloud:
@@ -41,7 +44,7 @@ eureka:
       defaultZone: http://${custom.server}:8761/eureka/
 
 custom:
-  server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)
+  server: 127.0.0.1
 
 jasypt:
   encryptor:

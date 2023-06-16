@@ -15,6 +15,9 @@
 #      show-details: always # ?? ??
 
 spring:
+  profiles:
+    default:
+
   application:
     name: gateway
   cloud:
@@ -27,6 +30,12 @@ spring:
             #- Host=**.example.com ??
           filters:
             #- SetPath=/?????
+
+        - id: baeker-member
+          uri: lb://baeker-member
+          predicates:
+            - Path=/api/member/**
+
 server:
   port: 9000
 
@@ -41,7 +50,7 @@ eureka:
       defaultZone: http://${custom.server}:8761/eureka/
 
 custom:
-  server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)
+  server: 127.0.0.1
 
 jasypt:
   encryptor:

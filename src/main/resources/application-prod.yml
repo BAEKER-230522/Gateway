@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+custom:
+  server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)
+

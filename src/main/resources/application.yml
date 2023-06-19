@@ -31,28 +31,33 @@ spring:
               replenishRate: 10
               burstCapacity: 20
               requestedToken: 1
+        - name: Retry
+          args:
+            retries: 3
+            backoff:
+              firstBackoff: 50ms
+              maxBackoff: 500ms
+        - name: CircuitBreaker
+          args:
+            name: myCircuitBreaker
+            fallbackUri: forward:/fallback
 
       routes:
         - id: rule-service
           uri: lb://rule-service
           predicates:
-            - Path=/api/rule/v1/**
-          filters:
-            - name: Retry
-              args:
-                retries: 3
-                backoff:
-                  firstBackoff: 50ms
-                  maxBackoff: 500ms
-            - name: CircuitBreaker
-              args:
-                name: myCircuitBreaker
-                fallbackUri: forward:/fallback
+            - Path=/api/rule/**
+
 
         - id: baeker-member
           uri: lb://baeker-member
           predicates:
             - Path=/api/member/**
+
+        - id: baeker-study
+          uri: lb://study-service
+          predicates:
+            - Path=/api/**
 
 server:
   port: 9000
@@ -68,7 +73,7 @@ eureka:
       defaultZone: http://${custom.server}:8761/eureka/
 
 custom:
-  server: 127.0.0.1
+  server: localhost
 
 jasypt:
   encryptor:

@@ -1,18 +1,18 @@
-#management:
-#  health:
-#    circuitbreakers:   # ?????
-#      enabled: true
-#    ratelimiters:
-#      enabled: true    # ????? ?? ??
-#    redis:
-#      enabled: false
-#  endpoints:                # ???
-#    web:
-#      exposure:
-#        include: *
-#  endpoint:
-#    health:
-#      show-details: always # ?? ??
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+    ratelimiters:
+      enabled: true
+    redis:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 
 spring:
   profiles:
@@ -22,14 +22,32 @@ spring:
     name: gateway
   cloud:
     gateway:
+      default-filters:
+        - SaveSession
+        - TokenRelay
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenishRate: 10
+              burstCapacity: 20
+              requestedToken: 1
+
       routes:
         - id: rule-service
           uri: lb://rule-service
           predicates:
             - Path=/api/rule/v1/**
-            #- Host=**.example.com ??
           filters:
-            #- SetPath=/?????
+            - name: Retry
+              args:
+                retries: 3
+                backoff:
+                  firstBackoff: 50ms
+                  maxBackoff: 500ms
+            - name: CircuitBreaker
+              args:
+                name: myCircuitBreaker
+                fallbackUri: forward:/fallback
 
         - id: baeker-member
           uri: lb://baeker-member
@@ -56,3 +74,17 @@ jasypt:
   encryptor:
     password:
     bean: jasyptStringEncryptor
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      myCircuitBreaker:
+        sliding-window-size: 10  # 서킷브레이커가 마지막 10개 요청을 고려
+        permitted-number-of-calls-in-half-open-state: 5 # 반절
+        failure-rate-threshold: 50 # 그중 50%가 실패하면 open
+        wait-duration-in-open-state: 10000 # 10초동안 open
+        register-health-indicator: true
+  timelimiter:
+    instances:
+      myCircuitBreaker:
+        timeout-duration: 3s # 요청 시간 제한

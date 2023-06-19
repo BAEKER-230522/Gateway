@@ -1,4 +1,4 @@
-package com.example.gateway.config;
+package com.example.gateway;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

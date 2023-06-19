@@ -8,7 +8,9 @@ import org.springframework.cloud.circuitbreaker.resilience4j.ReactiveResilience4
 import org.springframework.cloud.circuitbreaker.resilience4j.Resilience4JConfigBuilder;
 import org.springframework.cloud.client.circuitbreaker.Customizer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.context.annotation.Bean;
+import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 
@@ -26,4 +28,11 @@ public class GatewayApplication {
                 .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
                 .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build()).build());
     }
+
+    @Bean
+    KeyResolver userKeyResolver() {
+        return exchange -> Mono.just("1");
+    }
+
+
 }

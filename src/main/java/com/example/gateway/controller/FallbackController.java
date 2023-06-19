@@ -11,10 +11,8 @@ public class FallbackController {
     private static final Logger log = LoggerFactory.getLogger(FallbackController.class);
 
     @GetMapping("/fallback")
-//    public Flux<Void> fallback() {
-    public String fallback() {
+    public Flux<Void> fallback() {
         log.info("Fallback");
-//        return Flux.empty();
-        return "fallback";
+        return Flux.empty();
     }
 }

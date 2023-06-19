@@ -23,8 +23,8 @@ spring:
   cloud:
     gateway:
       default-filters:
-        - SaveSession
-        - TokenRelay
+#        - SaveSession
+#        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:

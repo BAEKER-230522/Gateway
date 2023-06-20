@@ -55,7 +55,7 @@ spring:
             - Path=/api/member/**
 
         - id: baeker-study
-          uri: lb://baeker-service
+          uri: lb://baeker-study
           predicates:
             - Path=/api/**
 

@@ -57,7 +57,7 @@ spring:
         - id: baeker-study
           uri: lb://baeker-study
           predicates:
-            - Path=/api/**
+            - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
 
 server:
   port: 9000

@@ -60,6 +60,11 @@ spring:
           predicates:
             - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
 
+        - id: solved
+          uri: lb://solved
+          predicates:
+            - Path=/api/solved/**
+
 server:
   port: 9000
 
@@ -67,6 +72,7 @@ server:
 eureka:
   instance:
     preferIpAddress: true
+    instance-id: ${custom.server}:${server.port}
   client:
     registerWithEureka: true
     fetchRegistry: true

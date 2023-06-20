@@ -32,13 +32,13 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 
             // Request 요청시 최초로 실행되는 필터
             stopWatch.start();
-            log.info("[글로벌 필터] REQUEST 요청 >>> IP : {}, URI : {}", request.getRemoteAddress(), request.getURI());
+            log.info("[Filter] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress(), request.getURI());
 
             // POST 필터
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
 
                 stopWatch.stop();
-                log.info("[글로벌 필터] RESPONSE 응답 >>> IP : {}, URI : {}, 응답코드 : {} ---> 처리시간 : {} ms",
+                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : {} ms",
                         request.getRemoteAddress().getAddress(),
                         request.getURI(),
                         response.getStatusCode(),

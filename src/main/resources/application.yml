@@ -24,6 +24,7 @@ spring:
     gateway:
       default-filters:
         - GlobalFilter
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
 
         #        - SaveSession
         #        - TokenRelay
@@ -43,6 +44,14 @@ spring:
           args:
             name: myCircuitBreaker
             fallbackUri: forward:/fallback
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allow-credentials: true
+            allowedHeaders: "*"
+            allowedMethods: "*"
 
       routes:
         - id: rule-service

@@ -24,20 +24,25 @@ spring:
     gateway:
       default-filters:
         - GlobalFilter
-        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
 
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: 'http://localhost:3000'
-            allow-credentials: true
-            allowedHeaders: '*'
-            allowedMethods:
-              - PUT
-              - GET
-              - POST
-              - DELETE
-              - OPTIONS
+        #        - SaveSession
+        #        - TokenRelay
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter:
+              replenishRate: 10
+              burstCapacity: 20
+              requestedToken: 1
+        - name: Retry
+          args:
+            retries: 3
+            backoff:
+              firstBackoff: 50ms
+              maxBackoff: 500ms
+        - name: CircuitBreaker
+          args:
+            name: myCircuitBreaker
+            fallbackUri: forward:/fallback
 
       routes:
         - id: rule-service

@@ -17,7 +17,6 @@ management:
 spring:
   profiles:
     default:
-
   application:
     name: gateway
   cloud:
@@ -25,9 +24,9 @@ spring:
       default-filters:
         - GlobalFilter
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
-
-        #        - SaveSession
-        #        - TokenRelay
+#        - AuthorizationHeaderFilter
+        - SaveSession
+        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:
@@ -40,10 +39,6 @@ spring:
             backoff:
               firstBackoff: 50ms
               maxBackoff: 500ms
-        - name: CircuitBreaker
-          args:
-            name: myCircuitBreaker
-            fallbackUri: forward:/fallback
 
       globalcors:
         corsConfigurations:
@@ -63,6 +58,11 @@ spring:
           uri: lb://rule-service
           predicates:
             - Path=/api/rule/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: ruleCircuitBreaker
+                fallbackUri: forward:/fallback-rule
 
         - id: baeker-member
           uri: lb://baeker-member
@@ -79,6 +79,27 @@ spring:
           predicates:
             - Path=/api/solved/**
 
+
+ # kakao
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          kakao:
+#            clientId: ENC(v3HCSehY14ighRx423yYdd0c+9lPu14JXCBJBcMLKDcZWKRPmCyo5xlYrh9lmr4B)
+#            scope: friends, talk_message, account_email, profile_nickname, profile_image
+#            client-name: Kakao
+#            authorization-grant-type: authorization_code
+#            redirect-uri: http://localhost:9000/login/oauth2/code/kakao
+#            client-authentication-method: POST
+#
+#        provider:
+#          kakao:
+#            authorization-uri: https://kauth.kakao.com/oauth/authorize
+#            token-uri: https://kauth.kakao.com/oauth/token
+#            user-info-uri: https://kapi.kakao.com/v2/user/me
+#            user-name-attribute: id
+
 server:
   port: 9000
 
@@ -94,6 +115,7 @@ eureka:
       defaultZone: http://${custom.server}:8761/eureka/
 
 custom:
+  front: "localhost:3000"
   server: localhost
 
 jasypt:

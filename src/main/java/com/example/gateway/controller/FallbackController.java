@@ -10,9 +10,9 @@ import reactor.core.publisher.Flux;
 public class FallbackController {
     private static final Logger log = LoggerFactory.getLogger(FallbackController.class);
 
-    @GetMapping("/fallback")
+    @GetMapping("/fallback-rule")
     public Flux<Void> fallback() {
-        log.info("Fallback");
+        log.info("Fallback-rule");
         return Flux.empty();
     }
 }

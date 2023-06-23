@@ -31,18 +31,18 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             ServerHttpResponse response = exchange.getResponse();
 
             // Request 요청시 최초로 실행되는 필터
-            stopWatch.start();
+//            stopWatch.start();
             log.info("[Filter] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress(), request.getURI());
 
             // POST 필터
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
 
-                stopWatch.stop();
-                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : {} ms",
+//                stopWatch.stop();
+                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : -- ms",
                         request.getRemoteAddress().getAddress(),
                         request.getURI(),
-                        response.getStatusCode(),
-                        stopWatch.getLastTaskTimeMillis()
+                        response.getStatusCode()
+//                        stopWatch.getLastTaskTimeMillis()
                 );
             }));
         }));

@@ -48,10 +48,15 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
+            allowedOrigins: 'http://localhost:3000'
             allow-credentials: true
             allowedHeaders: "*"
-            allowedMethods: "*"
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
 
       routes:
         - id: rule-service

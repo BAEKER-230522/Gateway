@@ -20,16 +20,13 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
     public static class Config{}
 
     public GlobalFilter() {
-        super(Config.class);
+        super(GlobalFilter.Config.class);
         stopWatch = new StopWatch("API Gatway");
     }
 
     @Override
     public GatewayFilter apply(Config config) {
         return (((exchange, chain) -> {
-
-
-
 
             // Req , Res 객체 가져오기
             ServerHttpRequest request = exchange.getRequest();

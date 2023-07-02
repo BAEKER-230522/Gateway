@@ -25,8 +25,8 @@ spring:
         - GlobalFilter
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
 #        - AuthorizationHeaderFilter
-        - SaveSession
-        - TokenRelay
+#        - SaveSession
+#        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:
@@ -78,27 +78,31 @@ spring:
           uri: lb://solved
           predicates:
             - Path=/api/solved/**
+        - id: keycloak
+          uri: http://${custom.server}:8080
+          predicates:
+            - Path=/auth/**
+          filters:
+            - RewritePath=/auth/(?<segment>.*), /$\{segment}
 
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            clientId: ENC(v3HCSehY14ighRx423yYdd0c+9lPu14JXCBJBcMLKDcZWKRPmCyo5xlYrh9lmr4B)
+            scope: friends, talk_message, account_email, profile_nickname, profile_image
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            client-authentication-method: POST
 
- # kakao
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          kakao:
-#            clientId: ENC(v3HCSehY14ighRx423yYdd0c+9lPu14JXCBJBcMLKDcZWKRPmCyo5xlYrh9lmr4B)
-#            scope: friends, talk_message, account_email, profile_nickname, profile_image
-#            client-name: Kakao
-#            authorization-grant-type: authorization_code
-#            redirect-uri: http://localhost:9000/login/oauth2/code/kakao
-#            client-authentication-method: POST
-#
-#        provider:
-#          kakao:
-#            authorization-uri: https://kauth.kakao.com/oauth/authorize
-#            token-uri: https://kauth.kakao.com/oauth/token
-#            user-info-uri: https://kapi.kakao.com/v2/user/me
-#            user-name-attribute: id
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
 
 server:
   port: 9000
@@ -115,12 +119,11 @@ eureka:
       defaultZone: http://${custom.server}:8761/eureka/
 
 custom:
-  front: "localhost:3000"
+  front: "localhost:3000" #TODO: front 서버 주소
   server: localhost
 
 jasypt:
   encryptor:
-    password:
     bean: jasyptStringEncryptor
 
 resilience4j:
@@ -136,3 +139,7 @@ resilience4j:
     instances:
       myCircuitBreaker:
         timeout-duration: 3s # 요청 시간 제한
+
+
+token:
+  secret: userToken

@@ -20,8 +20,11 @@ public class CustomOAuth2UserService extends AbstractOAuth2UserService implement
 
         ClientRegistration clientRegistration = userRequest.getClientRegistration();
         OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService = new DefaultOAuth2UserService();
-        OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest);
+        OAuth2User oAuth2User = oAuth2UserService.loadUser(userRequest); // social login 정보 꺼낼수있음
+        //
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
 
+        //
         ProviderUserRequest providerUserRequest = new ProviderUserRequest(clientRegistration,oAuth2User);
         ProviderUser providerUser = providerUser(providerUserRequest);
 

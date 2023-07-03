@@ -26,6 +26,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     implementation group: 'io.netty', name: 'netty-resolver-dns-native-macos', version: '4.1.93.Final'
 
+
     //redis
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
 

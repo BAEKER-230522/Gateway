@@ -24,7 +24,7 @@ spring:
       default-filters:
         - GlobalFilter
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
-#        - AuthorizationHeaderFilter
+#        - AuthenticationFilter
 #        - SaveSession
 #        - TokenRelay
         - name: RequestRateLimiter
@@ -90,11 +90,12 @@ spring:
       client:
         registration:
           kakao:
-            clientId: ENC(v3HCSehY14ighRx423yYdd0c+9lPu14JXCBJBcMLKDcZWKRPmCyo5xlYrh9lmr4B)
-            scope: friends, talk_message, account_email, profile_nickname, profile_image
+            clientId: ENC(0HCojoXJI2AP2Y71MdgjJ8uH7iJLBtyBEOtBkTrteQMu46fZXaJRcikg1KQLA4US)
+            client-secret: ENC(D2+A9repEfhZkouosSFp3UWO89glnAeafC6CRpyODMxUsZRGqZOist4896oOlf5c)
+            scope: account_email, profile_nickname, profile_image , openid
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/kakao
+            redirect-uri: http://127.0.0.1:9000/login/oauth2/code/kakao
             client-authentication-method: POST
 
         provider:

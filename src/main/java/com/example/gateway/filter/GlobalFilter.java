@@ -1,6 +1,5 @@
 package com.example.gateway.filter;
 
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;

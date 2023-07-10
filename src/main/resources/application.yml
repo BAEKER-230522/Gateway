@@ -24,9 +24,6 @@ spring:
       default-filters:
         - GlobalFilter
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
-#        - AuthenticationFilter
-#        - SaveSession
-#        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:
@@ -67,7 +64,7 @@ spring:
         - id: baeker-member
           uri: lb://baeker-member
           predicates:
-            - Path=/api/member/**
+            - Path=/api/member/**, /oauth2/authorization/**
 
         - id: baeker-study
           uri: lb://baeker-study

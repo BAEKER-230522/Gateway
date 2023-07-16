@@ -64,7 +64,7 @@ spring:
         - id: baeker-member
           uri: lb://baeker-member
           predicates:
-            - Path=/api/member/**, /oauth2/authorization/**
+            - Path=/api/member/**, /oauth2/authorization/**, /login/oauth2/code/**
 
         - id: baeker-study
           uri: lb://baeker-study
@@ -75,37 +75,12 @@ spring:
           uri: lb://solved
           predicates:
             - Path=/api/solved/**
-        - id: keycloak
-          uri: http://${custom.server}:8080
-          predicates:
-            - Path=/auth/**
-          filters:
-            - RewritePath=/auth/(?<segment>.*), /$\{segment}
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
-      client:
-        registration:
-          kakao:
-            clientId: ENC(0HCojoXJI2AP2Y71MdgjJ8uH7iJLBtyBEOtBkTrteQMu46fZXaJRcikg1KQLA4US)
-            client-secret: ENC(WJG683WsZHVZ73bPfEGNAUsfDzoHR8ulyfHL0mF8BxMhHITZXyoXm3RCS83VNKFM)
-            scope: account_email, profile_nickname, profile_image, openid
-            client-name: kakao
-            authorization-grant-type: authorization_code
-            redirect-uri: http://127.0.0.1:9000/login/oauth2/code/kakao
-            client-authentication-method: POST
-
-        provider:
-          kakao:
-            jwk-set-uri: https://kauth.kakao.com/.well-known/jwks.json
-            authorization-uri: https://kauth.kakao.com/oauth/authorize
-            token-uri: https://kauth.kakao.com/oauth/token
-            user-info-uri: https://kapi.kakao.com/v1/oidc/userinfo
-#            user-name-attribute: openid
-            issuer-uri: https://kauth.kakao.com
+#        - id: keycloak
+#          uri: http://${custom.server}:8080
+#          predicates:
+#            - Path=/auth/**
+#          filters:
+#            - RewritePath=/auth/(?<segment>.*), /$\{segment}
 
 server:
   port: 9000

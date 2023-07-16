@@ -64,7 +64,7 @@ spring:
         - id: baeker-member
           uri: lb://baeker-member
           predicates:
-            - Path=/api/member/**, /oauth2/authorization/**, /login/oauth2/code/**
+            - Path=/api/member/**, /oauth2/authorization/**, /login/**
 
         - id: baeker-study
           uri: lb://baeker-study

@@ -1,6 +1,10 @@
 package com.example.gateway.filter;
 
+import com.example.gateway.global.error.exception.TokenValidException;
+import com.example.gateway.global.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -15,6 +19,8 @@ import reactor.core.publisher.Mono;
 public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
 
     private StopWatch stopWatch;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     public static class Config{}
 
@@ -35,17 +41,32 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
 //            stopWatch.start();
             log.info("[Filter] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress(), request.getURI());
 
-            // POST 필터
-            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+            // 토큰 검증
+            try {
+                String jwtToken = request.getHeaders().getFirst("Authorization");
+                if (jwtUtil.validateToken(jwtToken)) {
+                    return chain.filter(exchange);
+                }
+            } catch (NullPointerException e) {
+                throw new TokenValidException("토큰이 없습니다.");
+            }
 
-//                stopWatch.stop();
-                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : -- ms",
-                        request.getRemoteAddress().getAddress(),
-                        request.getURI(),
-                        response.getStatusCode()
-//                        stopWatch.getLastTaskTimeMillis()
-                );
-            }));
+
+            throw new TokenValidException("토큰 검증 실패");
+
+
+
+            // POST 필터
+//            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+//
+////                stopWatch.stop();
+//                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : -- ms",
+//                        request.getRemoteAddress().getAddress(),
+//                        request.getURI(),
+//                        response.getStatusCode()
+////                        stopWatch.getLastTaskTimeMillis()
+//                );
+//            }));
         }));
     }
 }

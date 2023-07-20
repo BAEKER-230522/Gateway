@@ -99,6 +99,8 @@ eureka:
 custom:
   front: "localhost:3000" #TODO: front 서버 주소
   server: localhost
+  jwt:
+    secret-key: ENC(+GbV3Ykx/t5XFlaFHBZnXTzsSf9b3YChS2cVPTvCgwQmevtbB1Hfw91VMC/fTizxVssJvYiAMeQICsuoSrH5zNLh/jxJsXq/)
 
 jasypt:
   encryptor:
@@ -127,4 +129,5 @@ logging:
   level:
     org.springframework.security: TRACE
     org.springframework.security.jackson2: INFO
+
 

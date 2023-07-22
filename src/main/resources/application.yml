@@ -51,8 +51,8 @@ spring:
               - OPTIONS
 
       routes:
-        - id: rule-service
-          uri: lb://rule-service
+        - id: rule
+          uri: http://rule
           predicates:
             - Path=/api/rule/**
           filters:
@@ -66,13 +66,13 @@ spring:
           predicates:
             - Path=/api/member/**, /oauth2/authorization/**, /login/**
 
-        - id: baeker-study
-          uri: lb://baeker-study
+        - id: study
+          uri: http://study
           predicates:
             - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
 
         - id: solved
-          uri: lb://solved
+          uri: http://solved
           predicates:
             - Path=/api/solved/**
 #        - id: keycloak

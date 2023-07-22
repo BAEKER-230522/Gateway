@@ -4,5 +4,15 @@ spring:
       on-profile: prod
 
 custom:
-  server: ENC(w10K+s4EnEwDbAxgBF+dbNEpajaAseXA)
+  server: eureka.eureka.svc.cluster.local
+
+eureka:
+  instance:
+    preferIpAddress: false
+    instance-id: ${spring.application.name}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${custom.server}/eureka/
 

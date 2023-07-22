@@ -3,16 +3,3 @@ spring:
     activate:
       on-profile: prod
 
-custom:
-  server: eureka.eureka.svc.cluster.local
-
-eureka:
-  instance:
-    preferIpAddress: false
-    instance-id: ${spring.application.name}
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${custom.server}/eureka/
-

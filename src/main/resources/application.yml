@@ -61,8 +61,8 @@ spring:
                 name: ruleCircuitBreaker
                 fallbackUri: forward:/fallback-rule
 
-        - id: baeker-member
-          uri: lb://baeker-member
+        - id: member
+          uri: http://member
           predicates:
             - Path=/api/member/**, /oauth2/authorization/**, /login/**
 
@@ -84,17 +84,6 @@ spring:
 
 server:
   port: 9000
-
-
-eureka:
-  instance:
-    preferIpAddress: true
-    instance-id: ${custom.server}:${server.port}
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://${custom.server}:8761/eureka/
 
 custom:
   front: "localhost:3000" #TODO: front 서버 주소

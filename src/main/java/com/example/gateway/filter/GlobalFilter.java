@@ -40,7 +40,9 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             // Request 요청시 최초로 실행되는 필터
 //            stopWatch.start();
             log.info("[Filter] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress(), request.getURI());
-
+            if (request.getURI().getPath().equals("/oauth2/authorization/kakao")) {
+                return chain.filter(exchange);
+            }
             // 토큰 검증
             try {
                 String jwtToken = request.getHeaders().getFirst("Authorization");

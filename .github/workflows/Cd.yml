@@ -43,4 +43,4 @@ jobs:
     steps:
       - name: deploy run
         run: |
-          sh /kube/eureka/run.sh
+          sh /kube/gateway/run.sh

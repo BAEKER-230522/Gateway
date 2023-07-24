@@ -36,6 +36,10 @@ spring:
             backoff:
               firstBackoff: 50ms
               maxBackoff: 500ms
+        - name: CircuitBreaker
+          args:
+            name: CircuitBreaker
+            fallbackUri: forward:/fallback
 
       globalcors:
         corsConfigurations:
@@ -55,11 +59,6 @@ spring:
           uri: http://rule
           predicates:
             - Path=/api/rule/**
-          filters:
-            - name: CircuitBreaker
-              args:
-                name: ruleCircuitBreaker
-                fallbackUri: forward:/fallback-rule
 
         - id: member
           uri: http://member

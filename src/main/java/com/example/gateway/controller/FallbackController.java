@@ -13,9 +13,9 @@ import reactor.core.publisher.Mono;
 public class FallbackController {
     private static final Logger log = LoggerFactory.getLogger(FallbackController.class);
 
-    @GetMapping("/fallback-rule")
+    @GetMapping("/fallback")
     public Mono<ResponseEntity<String>> fallback() {
-        log.info("Fallback-rule");
+        log.error("Fallback");
         return Mono.just(
                 ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                         .body("Service is currently unavailable. Please try again later.")

@@ -35,6 +35,7 @@ public class JwtUtil {
         }catch (SignatureException e) {
             throw new TokenValidException("검증 되지않은 토큰");
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return true;

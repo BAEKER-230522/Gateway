@@ -110,8 +110,7 @@ resilience4j:
         timeout-duration: 3s # 요청 시간 제한
 
 
-token:
-  secret: userToken
+
 
 
 logging:

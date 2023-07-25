@@ -56,22 +56,22 @@ spring:
 
       routes:
         - id: rule
-          uri: http://rule
+          uri: lb://rule #http://rule
           predicates:
             - Path=/api/rule/**
 
         - id: member
-          uri: http://member
+          uri: lb://member #http://member
           predicates:
             - Path=/api/member/**, /oauth2/authorization/**, /login/**
 
         - id: study
-          uri: http://study
+          uri: lb://study #http://study
           predicates:
             - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
 
         - id: solved
-          uri: http://solved
+          uri: lb://solved #http://solved
           predicates:
             - Path=/api/solved/**
 #        - id: keycloak
@@ -86,7 +86,7 @@ server:
 
 custom:
   front: "localhost:3000" #TODO: front 서버 주소
-  server: localhost
+  server: 101.101.208.240 #localhost
   jwt:
     secret-key: ENC(+GbV3Ykx/t5XFlaFHBZnXTzsSf9b3YChS2cVPTvCgwQmevtbB1Hfw91VMC/fTizxVssJvYiAMeQICsuoSrH5zNLh/jxJsXq/)
 
@@ -108,7 +108,15 @@ resilience4j:
       myCircuitBreaker:
         timeout-duration: 3s # 요청 시간 제한
 
-
+eureka:
+  instance:
+    preferIpAddress: true
+    instance-id: ${custom.server}:${server.port}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${custom.server}:8761/eureka/
 
 
 

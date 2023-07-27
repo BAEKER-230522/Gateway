@@ -16,6 +16,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import static com.example.gateway.global.constants.Address.AUTH_URL;
+import static com.example.gateway.global.constants.Address.LOGIN_URL;
 
 @Slf4j
 @Component
@@ -43,7 +44,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             // Request 요청시 최초로 실행되는 필터
 //            stopWatch.start();
             log.info("[Filter] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress(), request.getURI());
-            if (request.getURI().getPath().equals(AUTH_URL) || request.getURI().getPath().contains(Address.LOGIN_URL)) {
+            if (request.getURI().getPath().equals(AUTH_URL) || request.getURI().getPath().contains(LOGIN_URL)) {
                 return chain.filter(exchange);
             }
             // 토큰 검증

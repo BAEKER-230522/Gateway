@@ -86,7 +86,7 @@ server:
 
 custom:
   front: "localhost:3000" #TODO: front 서버 주소
-  server: #10.22.1.11 #101.101.208.240 #localhost
+  server: 10.22.131.215 # 유레카 서버
   jwt:
     secret-key: ENC(+GbV3Ykx/t5XFlaFHBZnXTzsSf9b3YChS2cVPTvCgwQmevtbB1Hfw91VMC/fTizxVssJvYiAMeQICsuoSrH5zNLh/jxJsXq/)
 
@@ -116,7 +116,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://10.22.130.253:8761/eureka/
+      defaultZone: http://${custom.server}:8761/eureka/
 
 
 

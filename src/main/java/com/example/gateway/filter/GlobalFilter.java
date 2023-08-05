@@ -20,7 +20,7 @@ import static com.example.gateway.global.constants.Address.LOGIN_URL;
 
 @Slf4j
 @Component
-public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
+public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config>{
 
     private StopWatch stopWatch;
     @Autowired
@@ -47,7 +47,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             if (request.getURI().getPath().equals(AUTH_URL) || request.getURI().getPath().contains(LOGIN_URL)) {
                 return chain.filter(exchange);
             }
-            // 토큰 검증
+//             토큰 검증
             try {
                 String jwtToken = request.getHeaders().getFirst("Authorization");
                 if (jwtUtil.validateToken(jwtToken)) {
@@ -58,21 +58,24 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             }
 
 
-            throw new TokenValidException("토큰 검증 실패");
+
+
+
+//            throw new TokenValidException("토큰 검증 실패");
 
 
 
             // POST 필터
-//            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-//
-////                stopWatch.stop();
-//                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : -- ms",
-//                        request.getRemoteAddress().getAddress(),
-//                        request.getURI(),
-//                        response.getStatusCode()
-////                        stopWatch.getLastTaskTimeMillis()
-//                );
-//            }));
+            return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+
+//                stopWatch.stop();
+                log.info("[Filter] RESPONSE >>> IP : {}, URI : {}, Status : {} ---> Work Time : -- ms",
+                        request.getRemoteAddress().getAddress(),
+                        request.getURI(),
+                        response.getStatusCode()
+//                        stopWatch.getLastTaskTimeMillis()
+                );
+            }));
         }));
     }
 }

@@ -126,4 +126,4 @@ logging:
     org.springframework.security.jackson2: INFO
 
 solved:
-  ip: 3.35.27.184
+  ip: 54.180.90.94

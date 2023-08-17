@@ -3,6 +3,7 @@ package com.example.gateway.filter;
 import com.example.gateway.global.constants.Address;
 import com.example.gateway.global.error.exception.TokenValidException;
 import com.example.gateway.global.util.JwtUtil;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,10 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
                 }
             } catch (NullPointerException e) {
                 throw new TokenValidException("토큰이 없습니다.");
+            } catch (ExpiredJwtException e) {
+                if (request.getHeaders().getFirst("refreshToken") != null) {
+                    return chain.filter(exchange);
+                }
             }
 
 

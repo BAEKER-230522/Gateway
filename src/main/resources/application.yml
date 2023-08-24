@@ -65,7 +65,7 @@ spring:
         - id: member-service
           uri: lb://member-service #http://member
           predicates:
-            - Path=/api/member/**, /oauth2/authorization/**, /login/**
+            - Path=/api/member/**, /oauth2/authorization/**, /login/**, /api/search/**
 
         - id: study
           uri: lb://study #http://study

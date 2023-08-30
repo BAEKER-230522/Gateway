@@ -118,7 +118,6 @@ resilience4j:
 eureka:
   instance:
     preferIpAddress: true
-    instance-id: ${custom.server}:${server.port}
   client:
     registerWithEureka: true
     fetchRegistry: true

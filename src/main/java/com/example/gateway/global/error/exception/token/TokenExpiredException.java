@@ -1,4 +1,4 @@
-package com.example.gateway.global.error.exception;
+package com.example.gateway.global.error.exception.token;
 
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 

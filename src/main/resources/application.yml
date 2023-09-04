@@ -16,7 +16,7 @@ management:
 
 spring:
   profiles:
-    default:
+    default: dev
   application:
     name: gateway
   cloud:

@@ -113,7 +113,7 @@ resilience4j:
   timelimiter:
     instances:
       myCircuitBreaker:
-        timeout-duration: 3s # 요청 시간 제한
+        timeout-duration: 5s # 요청 시간 제한
 
 eureka:
   instance:

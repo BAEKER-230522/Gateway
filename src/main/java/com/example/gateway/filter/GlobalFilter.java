@@ -1,10 +1,8 @@
 package com.example.gateway.filter;
 
-import com.example.gateway.global.constants.Address;
-import com.example.gateway.global.error.exception.TokenValidException;
+import com.example.gateway.global.error.exception.token.TokenValidException;
 import com.example.gateway.global.util.JwtUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +12,6 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
-import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.net.InetSocketAddress;

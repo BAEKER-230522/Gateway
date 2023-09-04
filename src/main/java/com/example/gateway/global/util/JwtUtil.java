@@ -1,8 +1,9 @@
 package com.example.gateway.global.util;
 
-import com.example.gateway.global.error.exception.TokenValidException;
+import com.example.gateway.global.error.exception.token.TokenValidException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,11 +33,12 @@ public class JwtUtil {
                     .parseClaimsJws(jwtToken);
         } catch (ExpiredJwtException e) {
             throw new TokenValidException("토큰 만료 ");
-        }catch (SignatureException e) {
+        } catch (SignatureException e) {
             throw new TokenValidException("검증 되지않은 토큰");
+        } catch (MalformedJwtException e) {
+            throw new TokenValidException("토큰 구조 문제");
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
         return true;
     }

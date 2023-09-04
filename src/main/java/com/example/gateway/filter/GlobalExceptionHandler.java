@@ -32,12 +32,10 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         if (ex instanceof TokenValidException) {
             response.setStatusCode(((HttpStatus.UNAUTHORIZED).is4xxClientError()) ? HttpStatus.UNAUTHORIZED : HttpStatus.INTERNAL_SERVER_ERROR);
-            System.out.println("sssss");
         }
         return response.writeWith(Mono.fromSupplier(() -> {
             DataBufferFactory bufferFactory = response.bufferFactory();
             try {
-                System.out.println("sasasa");
                 GatewayErrorResponse gwErrorResponse = GatewayErrorResponse.defaultError(ex.getMessage());
                 byte[] errorResponse = objectMapper.writeValueAsBytes(gwErrorResponse);
 

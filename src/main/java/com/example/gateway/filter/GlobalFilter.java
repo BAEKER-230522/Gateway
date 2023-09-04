@@ -21,7 +21,7 @@ import static com.example.gateway.global.constants.Address.LOGIN_URL;
 
 @Slf4j
 @Component
-public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config>{
+public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Config> {
 
     private StopWatch stopWatch;
     @Autowired
@@ -29,7 +29,8 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
     @Value("${solved.ip}")
     private String solvedIp;
 
-    public static class Config{}
+    public static class Config {
+    }
 
     public GlobalFilter() {
         super(GlobalFilter.Config.class);
@@ -64,21 +65,20 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
                 String jwtToken = request.getHeaders().getFirst("Authorization");
                 if (jwtUtil.validateToken(jwtToken)) {
                     return chain.filter(exchange);
+                } else if (request.getHeaders().getFirst("refreshToken") != null) {
+                    return chain.filter(exchange);
                 }
+
             } catch (NullPointerException e) {
                 throw new TokenValidException("토큰이 없습니다.");
-            } catch (ExpiredJwtException e) {
+            } catch (ExpiredJwtException | TokenValidException e) {
                 if (request.getHeaders().getFirst("refreshToken") != null) {
-                    return chain.filter(exchange);
+                    return chain.filter(exchange).then();
                 }
             }
 
 
-
-
-
 //            throw new TokenValidException("토큰 검증 실패");
-
 
 
             // POST 필터

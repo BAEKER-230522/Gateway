@@ -123,4 +123,5 @@ logging:
 
 solved:
   ip: 54.180.90.94
-
+server:
+  port: 9000

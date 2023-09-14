@@ -83,14 +83,6 @@ spring:
 #          filters:
 #            - RewritePath=/auth/(?<segment>.*), /$\{segment}
 
-server:
-  ssl:
-    enabled: true
-    key-store-type: PKCS12
-    key-store-password: ENC(ebfNAD4t/e7tlS39HOlQyAEP+mqX4uAL)
-    key-store: file:/keystore.p12
-  port: 9000
-
 custom:
   front: "localhost:3000" #TODO: front 서버 주소
   server: 10.22.131.215 # 유레카 서버
@@ -122,9 +114,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://34.64.137.210:8761/eureka/
-
-
+      defaultZone: http://eureka:8761/eureka/
 
 logging:
   level:

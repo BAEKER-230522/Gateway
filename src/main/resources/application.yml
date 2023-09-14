@@ -114,7 +114,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://eureka:8761/eureka/
+      defaultZone: http://34.64.147.197:8761/eureka/
 
 logging:
   level:

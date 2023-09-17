@@ -75,6 +75,7 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
                 if (request.getHeaders().getFirst("refreshToken") != null) {
                     return chain.filter(exchange).then();
                 }
+                throw new TokenValidException("토큰 검증 실패");
             }
 
 

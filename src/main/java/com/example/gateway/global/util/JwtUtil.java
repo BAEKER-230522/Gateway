@@ -37,8 +37,8 @@ public class JwtUtil {
             throw new TokenValidException("검증 되지않은 토큰");
         } catch (MalformedJwtException e) {
             throw new TokenValidException("토큰 구조 문제");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            throw new TokenValidException("토큰이 존재하지 않음");
         }
         return true;
     }

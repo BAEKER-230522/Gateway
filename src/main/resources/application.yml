@@ -107,14 +107,14 @@ resilience4j:
       myCircuitBreaker:
         timeout-duration: 5s # 요청 시간 제한
 
-#eureka:
-#  instance:
-#    preferIpAddress: true
-#  client:
-#    registerWithEureka: true
-#    fetchRegistry: true
-#    serviceUrl:
-#      defaultZone: http://34.64.61.25:8761/eureka/
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://bk-eu.1ll.ca/eureka/
 
 logging:
   level:

@@ -12,7 +12,7 @@ jasypt:
 custom:
   front:
     url: http://localhost:3000
-  server: localhost
+  server: gateway
   storage: local
   bucket: baeker-local
   feign:

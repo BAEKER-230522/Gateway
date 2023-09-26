@@ -16,7 +16,6 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 
 @SpringBootApplication
-//@EnableDiscoveryClient
 public class GatewayApplication {
 
     public static void main(String[] args) {

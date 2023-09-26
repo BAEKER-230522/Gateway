@@ -43,4 +43,4 @@ jobs:
     steps:
       - name: deploy run
         run: |
-          sh /kube/gateway/run.sh
+          sh /gateway/gateway/run.sh

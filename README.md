@@ -149,7 +149,7 @@
 
 <br>
 
-[08 핵사고날 아키텍처로 리팩토링 시작](https://github.com/BAEKER-230522/Gateway/wiki/Troubleshooting#8%EF%B8%8F%E2%83%A3-%ED%95%B5%EC%82%AC%EA%B3%A0%EB%82%A0-%EC%95%84%ED%82%A4%ED%83%9D%EC%B2%98%EB%A1%9C-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EC%8B%9C%EC%9E%91)
+[08 핵사고날 아키텍처로 리팩토링 시작](https://github.com/BAEKER-230522/Gateway/wiki/Troubleshooting#8%EF%B8%8F%E2%83%A3-%ED%95%B5%EC%82%AC%EA%B3%A0%EB%82%A0-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98%EB%A1%9C-%EB%A6%AC%ED%8C%A9%ED%86%A0%EB%A7%81-%EC%8B%9C%EC%9E%91)
 
 - 왜 레이어드 아키텍처에서 핵사고날 아키텍처로 리팩토링을 하는가?
 - 어떻게 패키지 구조를 변경했는가?

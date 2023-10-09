@@ -51,6 +51,8 @@ spring:
           uri: http://bk-m.1ll.ca:8081
           predicates:
             - Path=/api/member/**, /oauth2/authorization/**, /login/**, /api/search/**
+          filters:
+            - JwtValidFilter
 
         - id: study
           uri: http://bk-s.1ll.ca:8082

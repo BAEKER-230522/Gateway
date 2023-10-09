@@ -1,8 +1,20 @@
 custom:
   server: gateway
-  front: "localhost:3000" #TODO: front 서버 주소
+  front: "localhost:3000"
+
+  route:
+    member: localhost:8081
+    study: localhost:8082
+    solved: localhost:8084
+    chat: localhost:8085
+    community: localhost:8086
+
   jwt:
     secret-key: ENC(+GbV3Ykx/t5XFlaFHBZnXTzsSf9b3YChS2cVPTvCgwQmevtbB1Hfw91VMC/fTizxVssJvYiAMeQICsuoSrH5zNLh/jxJsXq/)
+
+server:
+  port: 9000
+
 
 spring:
   profiles:
@@ -47,17 +59,74 @@ spring:
               - OPTIONS
 
       routes:
-        - id: member-service
-          uri: http://bk-m.1ll.ca:8081
+        - id: member
+          uri: http://${custom.route.member}
           predicates:
-            - Path=/api/member/**, /oauth2/authorization/**, /login/**, /api/search/**
-          filters:
-            - JwtValidFilter
+            - Path=/api/member/**, /api/search/**
+
+        - id: member_login
+          uri: http://${custom.route.member}
+          predicates:
+            - Path=/oauth2/authorization/**, /login/**
+
+        - id: member_public
+          uri: http://${custom.route.member}
+          predicates:
+            - Path=/pub/web/member/**, /pub/api/member/**
+
+        - id: member_user
+          uri: http://${custom.route.member}
+          filters: JwtValidFilter
+          predicates:
+            - Path=/usr/web/member/**, /usr/api/member/**
+
 
         - id: study
-          uri: http://bk-s.1ll.ca:8082
+          uri: http://${custom.route.study}
           predicates:
             - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
+
+        - id: study_public
+          uri: http://${custom.route.study}
+          predicates:
+            - Path=/pub/api/studyrule/**, /pub/api/study/**, /pub/api/my-study/**, /pub/web/studyrule/**, /pub/web/study/**, /pub/web/my-study/**
+
+        - id: study_user
+          uri: http://${custom.route.study}
+          filters: JwtValidFilter
+          predicates:
+            - Path=/usr/api/studyrule/**, /usr/api/study/**, /usr/api/my-study/**, /usr/web/studyrule/**, /usr/web/study/**, /usr/web/my-study/**
+
+
+        - id: solved
+          uri: http://${custom.route.solved}
+          predicates:
+            - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
+
+
+        - id: chat_public
+          uri: http://${custom.route.chat}
+          predicates:
+            - Path=/pub/web/chat/**, /pub/api/chat/**
+
+        - id: chat_user
+          uri: http://${custom.route.chat}
+          filters: JwtValidFilter
+          predicates:
+            - Path=/usr/web/chat/**, /usr/api/chat/**
+
+
+        - id: community_public
+          uri: http://${custom.route.community}
+          predicates:
+            - Path=/pub/web/community/**, /pub/api/community/**
+
+        - id: community_user
+          uri: http://${custom.route.community}
+          filters: JwtValidFilter
+          predicates:
+            - Path=/usr/web/community/**, /usr/api/community/**
+
 
 #        - id: keycloak
 #          uri: http://${custom.server}:8080
@@ -85,16 +154,10 @@ resilience4j:
         timeout-duration: 5s # 요청 시간 제한
 
 
-
 logging:
   level:
     org.springframework.security: TRACE
     org.springframework.security.jackson2: INFO
-
-solved:
-  ip: 54.180.90.94
-server:
-  port: 9000
 
 management:
   health:

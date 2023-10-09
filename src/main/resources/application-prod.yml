@@ -1,3 +1,12 @@
+custom:
+  route:
+    member: bk-m.1ll.ca:8081
+    study: bk-s.1ll.ca:8082
+    solved: solved.1ll.ca
+    chat: bk-ct.1ll.ca:8085
+    community: bk-cm.1ll.ca:8086
+
+
 spring:
   config:
     activate:

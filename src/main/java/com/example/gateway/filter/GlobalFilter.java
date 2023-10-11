@@ -27,15 +27,15 @@ public class GlobalFilter extends AbstractGatewayFilterFactory<GlobalFilter.Conf
             ServerHttpRequest request = exchange.getRequest();
             ServerHttpResponse response = exchange.getResponse();
 
-            log.info("[글로벌 필터] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress().getAddress(), request.getURI());
+//            log.info("[글로벌 필터] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress().getAddress(), request.getURI());
 
 
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-                log.info("[글로벌 필터] RESPONSE >>> IP : {}, URI : {}, Status : {}",
-                        request.getRemoteAddress().getAddress(),
-                        request.getURI(),
-                        response.getStatusCode()
-                );
+//                log.info("[글로벌 필터] RESPONSE >>> IP : {}, URI : {}, Status : {}",
+//                        request.getRemoteAddress().getAddress(),
+//                        request.getURI(),
+//                        response.getStatusCode()
+//                );
             }));
         }));
     }

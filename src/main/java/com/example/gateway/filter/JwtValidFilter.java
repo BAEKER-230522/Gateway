@@ -31,10 +31,10 @@ public class JwtValidFilter extends AbstractGatewayFilterFactory<JwtValidFilter.
             ServerHttpResponse response = exchange.getResponse();
 
 
-            log.info("    [JWT 검증 필터] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress().getAddress(), request.getURI());
-            request.getHeaders().forEach((key, value) -> {
-                log.info("        [요청 Header] {} : {}", key, value);
-            });
+//            log.info("    [JWT 검증 필터] REQUEST >>> IP : {}, URI : {}", request.getRemoteAddress().getAddress(), request.getURI());
+//            request.getHeaders().forEach((key, value) -> {
+//                log.info("        [요청 Header] {} : {}", key, value);
+//            });
 
 
             String jwt = getJwt(request);
@@ -42,15 +42,15 @@ public class JwtValidFilter extends AbstractGatewayFilterFactory<JwtValidFilter.
 
 
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-                log.info("        -----------------------------------------------------------------");
-                response.getHeaders().forEach((key, value) -> {
-                    log.info("        [응답 Header] {} : {}", key, value);
-                });
-
-                log.info("    [JWT 검증 필터] RESPONSE >>> IP : {}, URI : {}, Status : {}",
-                        request.getRemoteAddress().getAddress(),
-                        request.getURI(),
-                        response.getStatusCode());
+//                log.info("        -----------------------------------------------------------------");
+//                response.getHeaders().forEach((key, value) -> {
+//                    log.info("        [응답 Header] {} : {}", key, value);
+//                });
+//
+//                log.info("    [JWT 검증 필터] RESPONSE >>> IP : {}, URI : {}, Status : {}",
+//                        request.getRemoteAddress().getAddress(),
+//                        request.getURI(),
+//                        response.getStatusCode());
             }));
         }));
     }

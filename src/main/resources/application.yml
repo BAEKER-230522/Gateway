@@ -19,8 +19,10 @@ server:
 spring:
   profiles:
     default:
+
   application:
     name: ${custom.server}
+
   cloud:
     gateway:
       default-filters:
@@ -72,13 +74,14 @@ spring:
         - id: member_public
           uri: http://${custom.route.member}
           predicates:
-            - Path=/pub/web/member/**, /pub/api/member/**
+            - Path=/pub/member/**
 
         - id: member_user
           uri: http://${custom.route.member}
           filters: JwtValidFilter
           predicates:
-            - Path=/usr/web/member/**, /usr/api/member/**
+            - Path=/usr/member/**
+
 
 
         - id: study
@@ -89,13 +92,14 @@ spring:
         - id: study_public
           uri: http://${custom.route.study}
           predicates:
-            - Path=/pub/api/studyrule/**, /pub/api/study/**, /pub/api/my-study/**, /pub/web/studyrule/**, /pub/web/study/**, /pub/web/my-study/**
+            - Path=/pub/study/**
 
         - id: study_user
           uri: http://${custom.route.study}
           filters: JwtValidFilter
           predicates:
-            - Path=/usr/api/studyrule/**, /usr/api/study/**, /usr/api/my-study/**, /usr/web/studyrule/**, /usr/web/study/**, /usr/web/my-study/**
+            - Path=/usr/study/**
+
 
 
         - id: solved
@@ -104,28 +108,30 @@ spring:
             - Path=/api/studyrule/**,/api/study/**,/api/my-study/**
 
 
+
         - id: chat_public
           uri: http://${custom.route.chat}
           predicates:
-            - Path=/pub/web/chat/**, /pub/api/chat/**
+            - Path=/pub/chat/**
 
         - id: chat_user
           uri: http://${custom.route.chat}
           filters: JwtValidFilter
           predicates:
-            - Path=/usr/web/chat/**, /usr/api/chat/**
+            - Path=/usr/chat/**
+
 
 
         - id: community_public
           uri: http://${custom.route.community}
           predicates:
-            - Path=/pub/web/community/**, /pub/api/community/**
+            - Path=/pub/comm/**
 
         - id: community_user
           uri: http://${custom.route.community}
           filters: JwtValidFilter
           predicates:
-            - Path=/usr/web/community/**, /usr/api/community/**
+            - Path=/usr/comm/**
 
 
 #        - id: keycloak

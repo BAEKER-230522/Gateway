@@ -76,7 +76,15 @@
 
 <br>
 
-## ERD
+## 마이크로 서버 관계도
+
+[🔗 Member server ERD](https://github.com/BAEKER-230522/Member#erd)
+
+[🔗 Study server ERD](https://github.com/BAEKER-230522/Study#erd)
+
+[🔗 Community server Data model](https://github.com/BAEKER-230522/Community#%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%AA%A8%EB%8D%B8)
+
+<img width="830" alt="스크린샷 2023-10-13 오후 2 25 49" src="https://github.com/BAEKER-230522/Community/assets/115536240/6e0d9f51-e88a-4c48-bc90-a627630864a5">
 
 <br>
 
